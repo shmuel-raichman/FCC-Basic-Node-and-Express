@@ -13,10 +13,15 @@ console.log("Hello World")
 
 
 /** 2) A first working Express Server */
-
+app.get( '/str', function(req, res) {
+  res.send('Hello Express');
+});
 
 /** 3) Serve an HTML file */
-
+let absoluteIndexHtmlPath = __dirname + "/views/index.html";
+app.get( '/', function(req, res) {
+  res.sendFile(absoluteIndexHtmlPath);
+});
 
 /** 4) Serve static assets  */
 
