@@ -11,7 +11,13 @@ app.use( function(req, res, next) {
 });
 
 // --> 11)  Mount the body-parser middleware  here
-
+app.get('/now', (req, res, next) => { 
+   //let reqTime = { time: req.time = new Date }
+   req.time = new Date().toString();
+   next();
+  },
+   (req, res) => res.send({time: req.time})
+);
 
 /** 1) Meet the node console. */
 console.log("Hello World")
