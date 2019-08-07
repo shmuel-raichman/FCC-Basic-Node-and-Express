@@ -34,11 +34,16 @@ let jsonObject = {"message": "Hello json"}
 
 
 /** 6) Use the .env file to configure the app */
-if( process.env.MESSAGE_STYLE == "uppercase"){
-  jsonObject.message = jsonObject.message.toUpperCase();
-};
- 
-app.get( '/json', (req, res) => res.send(jsonObject));
+function isUpper(){
+  if( process.env.MESSAGE_STYLE == "uppercase"){
+    jsonObject.message = jsonObject.message.toUpperCase();
+    return Object.assign({}, jsonObject);
+  }else {
+    return jsonObject;
+  }
+}
+
+app.get( '/json', (req, res) => res.send(isUpper()));
 /** 7) Root-level Middleware - A logger */
 //  place it before all the routes !
 
