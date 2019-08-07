@@ -19,19 +19,24 @@ app.get( '/str', function(req, res) {
 
 /** 3) Serve an HTML file */
 let absoluteIndexHtmlPath = __dirname + "/views/index.html";
+let publicDirPath = __dirname + "/public";
 app.get( '/', function(req, res) {
   res.sendFile(absoluteIndexHtmlPath);
 });
 
 /** 4) Serve static assets  */
-
+app.use(express.static(publicDirPath));
 
 /** 5) serve JSON on a specific route */
+let jsonObject = {"message": "Hello json"}
 
 
 /** 6) Use the .env file to configure the app */
+if( process.env.MESSAGE_STYLE == "uppercase"){
+  jsonObject.message = jsonObject.message.toUpperCase();
+};
  
- 
+app.get( '/json', (req, res) => res.send(jsonObject));
 /** 7) Root-level Middleware - A logger */
 //  place it before all the routes !
 
