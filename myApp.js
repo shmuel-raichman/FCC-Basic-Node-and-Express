@@ -5,7 +5,10 @@ var app = express();
 const dotenv = require('dotenv');
 dotenv.config();
 // --> 7)  Mount the Logger middleware here
-
+app.use( function(req, res, next) {
+  console.log(`${req.method} ${req.path} - ${req.ip}`);
+  next();
+});
 
 // --> 11)  Mount the body-parser middleware  here
 
@@ -34,20 +37,33 @@ let jsonObject = {"message": "Hello json"}
 
 
 /** 6) Use the .env file to configure the app */
-if( process.env.MESSAGE_STYLE == "uppercase"){
-  jsonObject.message = jsonObject.message.toUpperCase();
-};
- 
-app.get( '/json', (req, res) => res.send(jsonObject));
+function isUpper(){
+  if( process.env.MESSAGE_STYLE == "uppercase"){
+    jsonObject.message = jsonObject.message.toUpperCase();
+    return Object.assign({}, jsonObject);
+  }else {
+    return jsonObject;
+  }
+}
+
+app.get( '/json', (req, res) => res.send(isUpper()));
 /** 7) Root-level Middleware - A logger */
 //  place it before all the routes !
 
 
 /** 8) Chaining middleware. A Time server */
-
+app.get('/now', (req, res, next) => { 
+   //let reqTime = { time: req.time = new Date }
+   req.time = new Date().toString();
+   next();
+  },
+   (req, res) => res.send({time: req.time})
+);
 
 /** 9)  Get input from client - Route parameters */
-
+app.get('/:word/echo', (req, res) => {
+  res.send({echo: req.params.word});
+});
 
 /** 10) Get input from client - Query parameters */
 // /name?first=<firstname>&last=<lastname>
