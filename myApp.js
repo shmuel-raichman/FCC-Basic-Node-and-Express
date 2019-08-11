@@ -1,6 +1,7 @@
-
+// B"H
 var express = require('express');
 var app = express();
+const bodyParser = require('body-parser');
 
 const dotenv = require('dotenv');
 dotenv.config();
@@ -11,10 +12,10 @@ app.use( function(req, res, next) {
 });
 
 // --> 11)  Mount the body-parser middleware  here
-
+app.use( bodyParser.urlencoded({extended: false}) );
 
 /** 1) Meet the node console. */
-console.log("Hello World")
+console.log("Hello World");
 
 
 /** 2) A first working Express Server */
@@ -67,7 +68,7 @@ app.get('/:word/echo', (req, res) => {
 
 /** 10) Get input from client - Query parameters */
 // /name?first=<firstname>&last=<lastname>
-// Validate request
+// alidate request
 function nameGet(req, res){
   if(req.query.last && req.query.first){
     res.status(200).json({name: req.query.first + " " + req.query.last});
@@ -93,3 +94,4 @@ app.route('/name').get( (req, res) => { nameGet(req, res) });
 //---------- DO NOT EDIT BELOW THIS LINE --------------------
 
  module.exports = app;
+
