@@ -50,7 +50,7 @@ function isUpper(){
 app.get( '/json', (req, res) => res.send(isUpper()));
 /** 7) Root-level Middleware - A logger */
 //  place it before all the routes !
-
+// Done
 
 /** 8) Chaining middleware. A Time server */
 app.get('/now', (req, res, next) => { 
@@ -82,10 +82,17 @@ app.route('/name').get( (req, res) => { nameGet(req, res) });
 /** 11) Get ready for POST Requests - the `body-parser` */
 // place it before all the routes !
 
-
+// Done
 /** 12) Get data form POST  */
 
-
+function namePost(req, res){
+  if(req.body.last && req.body.first){
+    res.status(200).json({name: req.body.first + " " + req.body.last});
+  }else{
+    res.status(500).json({err: 'worng'});
+  }
+}
+app.route('/name').post( (req, res) => { namePost(req, res) }); 
 
 // This would be part of the basic setup of an Express app
 // but to allow FCC to run tests, the server is already active
