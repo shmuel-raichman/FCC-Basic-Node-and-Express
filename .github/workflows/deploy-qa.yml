@@ -6,12 +6,13 @@
 name: Build and Deploy to GKE
 
 on:
-  release:
-    types: [created]
   push:
-    branches: [ interview-test ]
+    branches: 
+    - interview-test
   pull_request:
-    branches: [ master ]
+    branches: 
+    - master
+    - dev 
 
 env:
   PROJECT_ID: ${{ secrets.GKE_PROJECT }}
@@ -49,19 +50,24 @@ jobs:
         location: ${{ env.GKE_ZONE }}
         credentials: ${{ secrets.GKE_SA_KEY }}
 
-    # Build the Docker image
-    - name: Build
-      run: |-
-        docker build \
-          --tag "gcr.io/$PROJECT_ID/$IMAGE:$GITHUB_SHA" \
-          --build-arg GITHUB_SHA="$GITHUB_SHA" \
-          --build-arg GITHUB_REF="$GITHUB_REF" \
-          .
+    # # Build the Docker image
+    # - name: Build
+    #   run: |-
+    #     docker build \
+    #       --tag "gcr.io/$PROJECT_ID/$IMAGE:$GITHUB_SHA" \
+    #       --build-arg GITHUB_SHA="$GITHUB_SHA" \
+    #       --build-arg GITHUB_REF="$GITHUB_REF" \
+    #       .
 
     # Push the Docker image to Google Container Registry
-    - name: Publish
+    # - name: Publish
+    #   run: |-
+    #     # IMAGE_DIGEST=$(docker images --no-trunc --quiet "gcr.io/$PROJECT_ID/$IMAGE:$GITHUB_SHA")
+    #     echo $IMAGE_DIGEST
+    #     docker push "gcr.io/$PROJECT_ID/$IMAGE:$GITHUB_SHA"
+        # Push the Docker image to Google Container Registry
+    - name: Get dev image
       run: |-
-        # IMAGE_DIGEST=$(docker images --no-trunc --quiet "gcr.io/$PROJECT_ID/$IMAGE:$GITHUB_SHA")
         echo $IMAGE_DIGEST
         docker push "gcr.io/$PROJECT_ID/$IMAGE:$GITHUB_SHA"
 
@@ -83,4 +89,4 @@ jobs:
         cd install/
         echo $IMAGE_DIGEST
         echo "gcr.io\/$PROJECT_ID\/$IMAGE"
-        ./install-chart.sh $(docker images --no-trunc --quiet "gcr.io/$PROJECT_ID/$IMAGE:$GITHUB_SHA") "gcr.io\/$PROJECT_ID\/$IMAGE"
+        ./install-chart.sh $(kubectl get deployments -n dev $DEPLOYMENT_NAME-myapps -o jsonpath='{.spec.template.spec.containers[0].image}' | awk -F ":" '{print $2}) "gcr.io\/$PROJECT_ID\/$IMAGE"
