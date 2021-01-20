@@ -12,11 +12,11 @@ declare -A values
 values[REPOSITORY_NAME]="$REGISTRY\/fcc-basic-node-and-express"
 values[TAG]=$IMAGE_TAG
 values[INGRESS_ENABLED]=ture
-values[INGRESS_HOST_NAME]=fcc-basic-node-and-express
+values[INGRESS_HOST_NAME]=fcc-basic-node-and-express.$ENVIRONMENT.raichmans.com
 values[SERVICE_TYPE]=ClusterIP
 
 CHART_NAME=fcc-basic-node-and-express
-CHART_NMAESPACE=dev
+CHART_NMAESPACE=$ENVIRONMENT
 
 fetch_value()
 {
