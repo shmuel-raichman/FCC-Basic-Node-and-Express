@@ -94,7 +94,5 @@ jobs:
         cd install/
         echo "gcr.io\/$PROJECT_ID\/$IMAGE"
         DIGEST=$(docker image inspect --format "{{.RepoDigests}}" "gcr.io/$PROJECT_ID/$IMAGE:$GITHUB_SHA" | awk -F ":" '{print $2}' | awk -F "]" '{print $1}')
-        ./install-chart.sh $DIGEST "gcr.io\/$PROJECT_ID\/$IMAGE@sha256"
-        # $(docker images --no-trunc --quiet "gcr.io/$PROJECT_ID/$IMAGE:$GITHUB_SHA" | awk -F ":" '{print $2}') 
-        
+        ./install-chart.sh $DIGEST "gcr.io\/$PROJECT_ID\/$IMAGE@sha256"        
         
