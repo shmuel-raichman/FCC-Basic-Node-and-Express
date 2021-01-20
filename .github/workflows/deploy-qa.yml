@@ -26,7 +26,7 @@ env:
   GKE_ZONE: us-central1-c   # TODO: update to cluster zone
   DEPLOYMENT_NAME: fcc-basic-node-and-express # TODO: update to deployment name
   IMAGE: fcc-basic-node-and-express
-  ENVIRONMENT: dev
+  ENVIRONMENT: qa
   # IMAGE_DIGEST: ""
 
 jobs:
@@ -70,9 +70,7 @@ jobs:
         chmod u+x ./install/install-chart.sh
         ls -la
         pwd
-        ls -la ..
         cd install/
-        echo $IMAGE_DIGEST
         echo "gcr.io\/$PROJECT_ID\/$IMAGE"
         DEV_DIGEST=$(kubectl get deployments -n dev $DEPLOYMENT_NAME-myapps -o jsonpath='{.spec.template.spec.containers[0].image}' | awk -F ":" '{print $2}')
         ./install-chart.sh $DEV_DIGEST "gcr.io\/$PROJECT_ID\/$IMAGE@sha256"
