@@ -1,4 +1,4 @@
-FROM myapp-node-base:1.0.0 AS builder 
+FROM smuel770/fcc-basic-node-and-express:1.0.0 AS builder 
 
 WORKDIR /app
 
