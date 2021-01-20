@@ -6,6 +6,7 @@
 name: Build and Deploy to GKE QA
 
 on:
+  workflow_dispatch:
   push:
     branches: 
     - dev
