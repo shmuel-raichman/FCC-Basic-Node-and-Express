@@ -56,27 +56,6 @@ jobs:
         location: ${{ env.GKE_ZONE }}
         credentials: ${{ secrets.GKE_SA_KEY }}
 
-    # # Build the Docker image
-    # - name: Build
-    #   run: |-
-    #     docker build \
-    #       --tag "gcr.io/$PROJECT_ID/$IMAGE:$GITHUB_SHA" \
-    #       --build-arg GITHUB_SHA="$GITHUB_SHA" \
-    #       --build-arg GITHUB_REF="$GITHUB_REF" \
-    #       .
-
-    # Push the Docker image to Google Container Registry
-    # - name: Publish
-    #   run: |-
-    #     # IMAGE_DIGEST=$(docker images --no-trunc --quiet "gcr.io/$PROJECT_ID/$IMAGE:$GITHUB_SHA")
-    #     echo $IMAGE_DIGEST
-    #     docker push "gcr.io/$PROJECT_ID/$IMAGE:$GITHUB_SHA"
-        # Push the Docker image to Google Container Registry
-    - name: Get dev image
-      run: |-
-        echo $IMAGE_DIGEST
-        docker push "gcr.io/$PROJECT_ID/$IMAGE:$GITHUB_SHA"
-
     - name: Set up Helm
       run: |-
         cd ..
@@ -95,4 +74,5 @@ jobs:
         cd install/
         echo $IMAGE_DIGEST
         echo "gcr.io\/$PROJECT_ID\/$IMAGE"
-        ./install-chart.sh $(kubectl get deployments -n dev $DEPLOYMENT_NAME-myapps -o jsonpath='{.spec.template.spec.containers[0].image}' | awk -F ":" '{print $2}) "gcr.io\/$PROJECT_ID\/$IMAGE@sha256"
+        DEV_DIGEST=$(kubectl get deployments -n dev $DEPLOYMENT_NAME-myapps -o jsonpath='{.spec.template.spec.containers[0].image}' | awk -F ":" '{print $2})
+        ./install-chart.sh $DEV_DIGEST "gcr.io\/$PROJECT_ID\/$IMAGE@sha256"
