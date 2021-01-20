@@ -112,9 +112,9 @@ jobs:
     - name: Install app helm chart
       run: |-
         chmod u+x ./install/install-chart.sh
-        # ls -la
-        # pwd
-        # ls -la ..
+        ls -la
+        pwd
+        ls -la ..
         cd install
         ./install/install-chart.sh 1.0.2 install
     
