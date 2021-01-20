@@ -27,7 +27,7 @@ env:
   DEPLOYMENT_NAME: fcc-basic-node-and-express # TODO: update to deployment name
   IMAGE: fcc-basic-node-and-express
   ENVIRONMENT: dev
-  IMAGE_DIGEST: ""
+  # IMAGE_DIGEST: ""
 
 jobs:
   setup-build-publish-deploy:
@@ -68,7 +68,7 @@ jobs:
     # Push the Docker image to Google Container Registry
     - name: Publish
       run: |-
-        IMAGE_DIGEST=$(docker images --no-trunc --quiet "gcr.io/$PROJECT_ID/$IMAGE:$GITHUB_SHA")
+        # IMAGE_DIGEST=$(docker images --no-trunc --quiet "gcr.io/$PROJECT_ID/$IMAGE:$GITHUB_SHA")
         echo $IMAGE_DIGEST
         docker push "gcr.io/$PROJECT_ID/$IMAGE:$GITHUB_SHA"
 
@@ -90,7 +90,7 @@ jobs:
         cd install/
         echo $IMAGE_DIGEST
         echo "gcr.io\/$PROJECT_ID\/$IMAGE"
-        ./install-chart.sh $IMAGE_DIGEST "gcr.io\/$PROJECT_ID\/$IMAGE"
+        ./install-chart.sh docker $(images --no-trunc --quiet "gcr.io/$PROJECT_ID/$IMAGE:$GITHUB_SHA") "gcr.io\/$PROJECT_ID\/$IMAGE"
     
 
 #     # Deploy the Docker image to the GKE cluster
