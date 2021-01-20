@@ -102,7 +102,7 @@ jobs:
     # Set up kustomize
     - name: Set up Helm
       run: |-
-        curl -sfLo helm https://get.helm.sh/helm-v3.5.0-linux-amd64.tar.gz
+        wget https://get.helm.sh/helm-v3.5.0-linux-amd64.tar.gz
         tar xvzf helm-v3.5.0-linux-amd64.tar.gz
         cp linux-amd64/helm ./helm
         chmod u+x ./helm
