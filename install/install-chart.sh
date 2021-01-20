@@ -12,7 +12,7 @@ declare -A values
 values[REPOSITORY_NAME]="smuel770\/fcc-basic-node-and-express"
 values[TAG]=$IMAGE_TAG
 values[INGRESS_ENABLED]=ture
-values[INGRESS_HOST_NAME]=myapp-nodejs
+values[INGRESS_HOST_NAME]=fcc-basic-node-and-express
 values[SERVICE_TYPE]=ClusterIP
 
 
