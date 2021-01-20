@@ -3,35 +3,29 @@
 #
 # For more support on how to run the workflow, please visit https://github.com/google-github-actions/setup-gcloud/tree/master/example-workflows/gke
 
-name: Build and Deploy to GKE QA
+# For later
+name: Resize
 
 on:
   workflow_dispatch:
     inputs:
-      logLevel:
-        description: 'Log level'     
+      size:
+        description: 'Number of nodes'     
         required: true
-        default: 'warning'
-  push:
-    branches: 
-    - dev
-  pull_request:
-    branches: 
-    - master
-    - dev 
+        default: '0'
+      pool_name:
+        description: "pool name"
+        required: true
+        default: "default-pool"
 
 env:
   PROJECT_ID: ${{ secrets.GKE_PROJECT }}
-  GKE_CLUSTER: tikal-interview # TODO: update to cluster name
+  GKE_CLUSTER: ${{ secrets.GKE_CLUSTER_NAME }} #tikal-interview # TODO: update to cluster name
   GKE_ZONE: us-central1-c   # TODO: update to cluster zone
-  DEPLOYMENT_NAME: fcc-basic-node-and-express # TODO: update to deployment name
-  IMAGE: fcc-basic-node-and-express
-  ENVIRONMENT: qa
-  # IMAGE_DIGEST: ""
 
 jobs:
   setup-build-publish-deploy:
-    name: Setup, Build, Publish, and Deploy
+    name: Setup, Build
     runs-on: ubuntu-latest
 
     steps:
@@ -52,25 +46,12 @@ jobs:
     # Get the GKE credentials so we can deploy to the cluster
     - uses: google-github-actions/get-gke-credentials@v0.2.1
       with:
-        cluster_name: ${{ env.GKE_CLUSTER }}
+        cluster_name: ${{ secrets.GKE_CLUSTER_NAME }}
         location: ${{ env.GKE_ZONE }}
         credentials: ${{ secrets.GKE_SA_KEY }}
 
-    - name: Set up Helm
+    # Build the Docker image
+    - name: Build
       run: |-
-        cd ..
-        wget https://get.helm.sh/helm-v3.5.0-linux-amd64.tar.gz
-        tar xvzf helm-v3.5.0-linux-amd64.tar.gz
-        cd FCC-Basic-Node-and-Express/
-        cp ../linux-amd64/helm ./helm
-        chmod u+x ./helm
-
-    - name: Install app helm chart
-      run: |-
-        chmod u+x ./install/install-chart.sh
-        ls -la
-        pwd
-        cd install/
-        echo "gcr.io\/$PROJECT_ID\/$IMAGE"
-        DEV_DIGEST=$(kubectl get deployments -n dev $DEPLOYMENT_NAME-myapps -o jsonpath='{.spec.template.spec.containers[0].image}' | awk -F ":" '{print $2}')
-        ./install-chart.sh $DEV_DIGEST "gcr.io\/$PROJECT_ID\/$IMAGE@sha256"
+        gcloud container clusters resize ${{ secrets.GKE_CLUSTER_NAME }} --node-pool ${{ github.event.inputs.pool_name }}" \
+        --num-nodes ${{ github.event.inputs.size }}"
