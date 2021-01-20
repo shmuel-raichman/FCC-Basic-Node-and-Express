@@ -24,8 +24,8 @@ env:
   GKE_ZONE: us-central1-c   # TODO: update to cluster zone
 
 jobs:
-  setup-build-publish-deploy:
-    name: Setup, Build
+  setup-resize:
+    name: Setup, Resize
     runs-on: ubuntu-latest
 
     steps:
@@ -51,7 +51,10 @@ jobs:
         credentials: ${{ secrets.GKE_SA_KEY }}
 
     # Build the Docker image
-    - name: Build
+    - name: Resize
       run: |-
-        gcloud container clusters resize ${{ secrets.GKE_CLUSTER_NAME }} --node-pool ${{ github.event.inputs.pool_name }}" \
-        --num-nodes ${{ github.event.inputs.size }}"
+        gcloud container clusters resize ${{ secrets.GKE_CLUSTER_NAME }} \
+        --node-pool=${{ github.event.inputs.pool_name }} \
+        --num-nodes=${{ github.event.inputs.size }} \
+        --zone ${{ env.GKE_ZONE }} \
+        --quiet
