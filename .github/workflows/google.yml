@@ -110,7 +110,10 @@ jobs:
     - name: Install app helm chart
       run: |-
         chmod u+x ./install/install-chart.sh
-        ./install/install-chart.sh
+        ls -la
+        pwd
+        ls -la ..
+        ./install/install-chart.sh 1.0.2 install
     
 
 #     # Deploy the Docker image to the GKE cluster
