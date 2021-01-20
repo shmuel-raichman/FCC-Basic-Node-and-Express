@@ -26,6 +26,7 @@ env:
   GKE_ZONE: us-central1-c   # TODO: update to cluster zone
   DEPLOYMENT_NAME: fcc-basic-node-and-express # TODO: update to deployment name
   IMAGE: fcc-basic-node-and-express
+  NAMESPACE: dev
 
 jobs:
   setup-build-publish-deploy:
@@ -116,7 +117,7 @@ jobs:
         pwd
         ls -la ..
         cd install/
-        ./install-chart.sh 1.0.2 install
+        ./install-chart.sh $GITHUB_SHA "gcr.io\/$PROJECT_ID\/$IMAGE"
     
 
 #     # Deploy the Docker image to the GKE cluster

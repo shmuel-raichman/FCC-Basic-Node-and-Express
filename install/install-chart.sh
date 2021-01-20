@@ -5,16 +5,18 @@
 E_DB=99    # Error code for missing entry.
 
 IMAGE_TAG=$1
-BUILD_OR_UPGRADE=$2
+REGISTRY="${2:-smuel770}"
 
 # Map of app spesific values.
 declare -A values
-values[REPOSITORY_NAME]="smuel770\/fcc-basic-node-and-express"
+values[REPOSITORY_NAME]="$REGISTRY\/fcc-basic-node-and-express"
 values[TAG]=$IMAGE_TAG
 values[INGRESS_ENABLED]=ture
 values[INGRESS_HOST_NAME]=fcc-basic-node-and-express
 values[SERVICE_TYPE]=ClusterIP
 
+CHART_NAME=fcc-basic-node-and-express
+CHART_NMAESPACE=dev
 
 fetch_value()
 {
@@ -29,8 +31,6 @@ fetch_value()
 }
 
 echo $values
-CHART_NAME=myapp-nodejs
-CHART_NMAESPACE=apps-dev
 
 cd ../myapps
 cp values.yaml tmp-values.yaml
@@ -42,11 +42,22 @@ do
 done
 #
 
-if [ "$BUILD_OR_UPGRADE" == "install" ]; then
-    helm install $CHART_NAME ./ --namespace=$CHART_NMAESPACE --values=tmp-values.yaml
+if ! kubectl get ns $CHART_NMAESPACE &> /dev/null ; then
+    helm install $CHART_NAME ./ --namespace=$CHART_NMAESPACE --values=tmp-values.yaml --create-namespace
+    echo "Chart deployed in new namespace"
+elif helm status --namespace=$CHART_NMAESPACE $CHART_NAME &> /dev/null; then
+    helm upgrade $CHART_NAME ./ --namespace=$CHART_NMAESPACE --values=tmp-values.yaml 
+     echo "Chart was upgraded"
 else
-    helm upgrade $CHART_NAME ./ --namespace=$CHART_NMAESPACE --values=tmp-values.yaml
+    helm install $CHART_NAME ./ --namespace=$CHART_NMAESPACE --values=tmp-values.yaml
+    echo "Chart deployed"
 fi
+
+# if [ "$BUILD_OR_UPGRADE" == "install" ]; then
+#     helm install $CHART_NAME ./ --namespace=$CHART_NMAESPACE --values=tmp-values.yaml --create-namespace
+# else
+#     helm upgrade $CHART_NAME ./ --namespace=$CHART_NMAESPACE --values=tmp-values.yaml 
+# fi
 
 rm -f tmp-values.yaml
 
