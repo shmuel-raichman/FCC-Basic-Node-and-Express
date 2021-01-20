@@ -8,7 +8,7 @@ name: Build and Deploy to GKE QA
 on:
   push:
     branches: 
-    - interview-test
+    - dev
   pull_request:
     branches: 
     - master

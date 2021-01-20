@@ -6,10 +6,7 @@
 # For later
 name: Build
 
-on:
-  push:
-    branches: 
-    - "*"
+on: workflow_dispatch
 
 env:
   PROJECT_ID: ${{ secrets.GKE_PROJECT }}
