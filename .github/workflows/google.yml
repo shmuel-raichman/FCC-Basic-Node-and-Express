@@ -69,6 +69,7 @@ jobs:
     - name: Publish
       run: |-
         IMAGE_DIGEST=$(docker images --no-trunc --quiet "gcr.io/$PROJECT_ID/$IMAGE:$GITHUB_SHA")
+        echo $IMAGE_DIGEST
         docker push "gcr.io/$PROJECT_ID/$IMAGE:$GITHUB_SHA"
 
     - name: Set up Helm
