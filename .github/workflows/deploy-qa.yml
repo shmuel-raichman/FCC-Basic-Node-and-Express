@@ -3,7 +3,7 @@
 #
 # For more support on how to run the workflow, please visit https://github.com/google-github-actions/setup-gcloud/tree/master/example-workflows/gke
 
-name: Build and Deploy to GKE
+name: Build and Deploy to GKE QA
 
 on:
   push:
@@ -89,4 +89,4 @@ jobs:
         cd install/
         echo $IMAGE_DIGEST
         echo "gcr.io\/$PROJECT_ID\/$IMAGE"
-        ./install-chart.sh $(kubectl get deployments -n dev $DEPLOYMENT_NAME-myapps -o jsonpath='{.spec.template.spec.containers[0].image}' | awk -F ":" '{print $2}) "gcr.io\/$PROJECT_ID\/$IMAGE"
+        ./install-chart.sh $(kubectl get deployments -n dev $DEPLOYMENT_NAME-myapps -o jsonpath='{.spec.template.spec.containers[0].image}' | awk -F ":" '{print $2}) "gcr.io\/$PROJECT_ID\/$IMAGE@sha256"
