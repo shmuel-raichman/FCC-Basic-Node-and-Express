@@ -105,7 +105,7 @@ jobs:
         cd ..
         wget https://get.helm.sh/helm-v3.5.0-linux-amd64.tar.gz
         tar xvzf helm-v3.5.0-linux-amd64.tar.gz
-        cd FCC-Basic-Node-and-Express
+        cd FCC-Basic-Node-and-Express/
         cp ../linux-amd64/helm ./helm
         chmod u+x ./helm
 
@@ -115,8 +115,8 @@ jobs:
         ls -la
         pwd
         ls -la ..
-        cd install
-        ./install/install-chart.sh 1.0.2 install
+        cd install/
+        ./install-chart.sh 1.0.2 install
     
 
 #     # Deploy the Docker image to the GKE cluster
