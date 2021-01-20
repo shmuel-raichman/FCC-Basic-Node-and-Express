@@ -5,11 +5,12 @@
 E_DB=99    # Error code for missing entry.
 
 IMAGE_TAG=$1
-REGISTRY="${2:-smuel770}"
+DEFAULT_REGISTRY="smuel770\/fcc-basic-node-and-express"
+REGISTRY="${2:-$DEFAULT_REGISTRY}"
 
 # Map of app spesific values.
 declare -A values
-values[REPOSITORY_NAME]="$REGISTRY\/fcc-basic-node-and-express"
+values[REPOSITORY_NAME]="$REGISTRY"
 values[TAG]=$IMAGE_TAG
 values[INGRESS_ENABLED]=ture
 values[INGRESS_HOST_NAME]=fcc-basic-node-and-express.$ENVIRONMENT.raichmans.com

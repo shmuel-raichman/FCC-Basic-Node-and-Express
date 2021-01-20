@@ -80,4 +80,4 @@ jobs:
         cd install/
         echo $IMAGE_DIGEST
         echo "gcr.io\/$PROJECT_ID\/$IMAGE"
-        ./install-chart.sh $(docker images --no-trunc --quiet "gcr.io/$PROJECT_ID/$IMAGE:$GITHUB_SHA" | awk -F ":" '{print $2}') "gcr.io\/$PROJECT_ID\/$IMAGE@"
+        ./install-chart.sh $(docker images --no-trunc --quiet "gcr.io/$PROJECT_ID/$IMAGE:$GITHUB_SHA" | awk -F ":" '{print $2}') "gcr.io\/$PROJECT_ID\/$IMAGE@sha256"
