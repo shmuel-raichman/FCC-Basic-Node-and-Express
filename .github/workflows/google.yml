@@ -102,17 +102,20 @@ jobs:
     # Set up kustomize
     - name: Set up Helm
       run: |-
+        cd ..
         wget https://get.helm.sh/helm-v3.5.0-linux-amd64.tar.gz
         tar xvzf helm-v3.5.0-linux-amd64.tar.gz
-        cp linux-amd64/helm ./helm
+        cd FCC-Basic-Node-and-Express
+        cp ../linux-amd64/helm ./helm
         chmod u+x ./helm
 
     - name: Install app helm chart
       run: |-
         chmod u+x ./install/install-chart.sh
-        ls -la
-        pwd
-        ls -la ..
+        # ls -la
+        # pwd
+        # ls -la ..
+        cd install
         ./install/install-chart.sh 1.0.2 install
     
 
