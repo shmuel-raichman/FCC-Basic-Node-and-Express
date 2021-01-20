@@ -18,7 +18,7 @@ env:
   # IMAGE_DIGEST: ""
 
 jobs:
-  setup-build-publish-deploy:
+  setup-build:
     name: Setup, Build
     runs-on: ubuntu-latest
 

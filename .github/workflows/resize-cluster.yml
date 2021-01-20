@@ -24,8 +24,8 @@ env:
   GKE_ZONE: us-central1-c   # TODO: update to cluster zone
 
 jobs:
-  setup-build-publish-deploy:
-    name: Setup, Build
+  setup-resize:
+    name: Setup, Resize
     runs-on: ubuntu-latest
 
     steps:
