@@ -6,11 +6,13 @@
 		"cookie-parser": "^1.4.3",
 		"dotenv": "^8.0.0",
 		"express": "^4.14.0",
-		"fcc-express-bground": "https://github.com/Em-Ant/fcc-express-bground-pkg.git"
+		"fcc-express-bground": "https://github.com/Em-Ant/fcc-express-bground-pkg.git",
+		"mocha": "^8.2.1"
 	},
 	"main": "server.js",
 	"scripts": {
-		"start": "node server.js"
+		"start": "node server.js",
+		"test": "mocha"
 	},
 	"engines": {
 		"node": "4.4.5"

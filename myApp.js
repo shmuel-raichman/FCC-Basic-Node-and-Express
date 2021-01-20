@@ -17,6 +17,10 @@ app.use( bodyParser.urlencoded({extended: false}) );
 /** 1) Meet the node console. */
 console.log("Hello World");
 
+/** k8s health */
+app.get( '/health', function(req, res) {
+  res.status(200).json({"status:": "up"});
+});
 
 /** 2) A first working Express Server */
 app.get( '/str', function(req, res) {
@@ -93,6 +97,10 @@ function namePost(req, res){
   }
 }
 app.route('/name').post( (req, res) => { namePost(req, res) }); 
+
+function unitTest(){
+  return true
+}
 
 // This would be part of the basic setup of an Express app
 // but to allow FCC to run tests, the server is already active
