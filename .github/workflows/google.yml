@@ -88,6 +88,8 @@ jobs:
         pwd
         ls -la ..
         cd install/
+        echo $IMAGE_DIGEST
+        echo "gcr.io\/$PROJECT_ID\/$IMAGE"
         ./install-chart.sh $IMAGE_DIGEST "gcr.io\/$PROJECT_ID\/$IMAGE"
     
 
