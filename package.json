@@ -11,7 +11,8 @@
 	"main": "server.js",
 	"scripts": {
 		"start": "node server.js",
-		"test": "mocha"
+		"test": "mocha",
+		"build": "docker build -t fcc-learn-node-with-express ."
 	},
 	"engines": {
 		"node": "4.4.5"
