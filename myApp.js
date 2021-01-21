@@ -17,6 +17,22 @@ app.use( bodyParser.urlencoded({extended: false}) );
 /** 1) Meet the node console. */
 console.log("Hello World");
 
+/** App version health */
+app.get( '/version', function(req, res) {
+  res.status(200).json(
+    {
+      "GITHUBREF": process.env.GITHUB_REF,
+      "GITHUB_SHA": process.env.GITHUB_SHA
+    }
+  );
+});
+
+/** App commit log health */
+let gitcommitPath = __dirname + "/static/log.html";
+app.get( '/log', function(req, res) {
+  res.sendFile(gitcommitPath);
+});
+
 /** k8s health */
 app.get( '/health', function(req, res) {
   res.status(200).json({"status:": "up"});
@@ -28,8 +44,8 @@ app.get( '/str', function(req, res) {
 });
 
 /** 3) Serve an HTML file */
-let absoluteIndexHtmlPath = __dirname + "/views/index.html";
-let publicDirPath = __dirname + "/public";
+let absoluteIndexHtmlPath = __dirname + "/static/views/index.html";
+let publicDirPath = __dirname + "/static/public";
 app.get( '/', function(req, res) {
   res.sendFile(absoluteIndexHtmlPath);
 });

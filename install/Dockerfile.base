@@ -1,3 +1,0 @@
-FROM node:lts-alpine3.12 AS builder 
-
-RUN apk add git tini && rm -rf /var/cache/apk
