@@ -17,6 +17,16 @@ app.use( bodyParser.urlencoded({extended: false}) );
 /** 1) Meet the node console. */
 console.log("Hello World");
 
+/** App version health */
+app.get( '/Version', function(req, res) {
+  res.status(200).json(
+    {
+      "GITHUBREF:": process.env.GITHUB_REF,
+      "GITHUB_SHA": process.env.GITHUB_SHA
+    }
+  );
+});
+
 /** k8s health */
 app.get( '/health', function(req, res) {
   res.status(200).json({"status:": "up"});
