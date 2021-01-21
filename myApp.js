@@ -28,8 +28,9 @@ app.get( '/version', function(req, res) {
 });
 
 /** App commit log health */
+let gitcommitPath = __dirname + "/static/log.html";
 app.get( '/log', function(req, res) {
-  res.sendFile("/static/log.html");
+  res.sendFile(gitcommitPath);
 });
 
 /** k8s health */
