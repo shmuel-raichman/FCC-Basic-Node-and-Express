@@ -8,13 +8,20 @@ IMAGE_TAG=$1
 DEFAULT_REGISTRY="smuel770\/fcc-basic-node-and-express"
 REGISTRY="${2:-$DEFAULT_REGISTRY}"
 
+
+
 # Map of app spesific values.
 declare -A values
 values[REPOSITORY_NAME]="$REGISTRY"
 values[TAG]=$IMAGE_TAG
 values[INGRESS_ENABLED]=ture
-values[INGRESS_HOST_NAME]=fcc-basic-node-and-express.$ENVIRONMENT.raichmans.com
 values[SERVICE_TYPE]=ClusterIP
+
+if "$ENVIRONMENT" == "prod" ; then
+    values[INGRESS_HOST_NAME]=fcc-basic-node-and-express.raichmans.com
+else
+    values[INGRESS_HOST_NAME]=fcc-basic-node-and-express.$ENVIRONMENT.raichmans.com
+fi
 
 CHART_NAME=fcc-basic-node-and-express
 CHART_NMAESPACE=$ENVIRONMENT
