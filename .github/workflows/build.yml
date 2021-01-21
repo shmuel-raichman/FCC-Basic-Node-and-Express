@@ -27,6 +27,10 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
 
+    - run: |
+        git fetch --deepen 20
+        git log --pretty=oneline --max-count 20  > static/log.html
+
     # Setup gcloud CLI
     - uses: google-github-actions/setup-gcloud@v0.2.0
       with:

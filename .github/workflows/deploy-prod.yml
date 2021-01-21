@@ -7,14 +7,9 @@ name: Build and Deploy to GKE QA
 
 on:
   workflow_dispatch:
-
-  push:
-    branches: 
-    - dev
   pull_request:
     branches: 
-    - master
-    - dev 
+    - main
 
 env:
   PROJECT_ID: ${{ secrets.GKE_PROJECT }}
@@ -22,7 +17,7 @@ env:
   GKE_ZONE: us-central1-c   # TODO: update to cluster zone
   DEPLOYMENT_NAME: fcc-basic-node-and-express # TODO: update to deployment name
   IMAGE: fcc-basic-node-and-express
-  ENVIRONMENT: qa
+  ENVIRONMENT: prod
   REGISTRY: smuel770
   # IMAGE_DIGEST: ""
 
@@ -38,7 +33,7 @@ jobs:
     - run: |
         git fetch --deepen 20
         git log --pretty=oneline --max-count 20  > static/log.html
-        
+
     # Setup gcloud CLI
     - uses: google-github-actions/setup-gcloud@v0.2.0
       with:
