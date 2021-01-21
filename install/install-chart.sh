@@ -38,10 +38,8 @@ cp values.yaml tmp-values.yaml
 for value in ${!values[@]}
 do
     fetch_value $value
-    # sed -i -e "s/$value/${values[$value]}/g" tmp-values.yaml
     sed -i -e "s/$value/$(fetch_value $value)/g" tmp-values.yaml
 done
-#
 
 if ! kubectl get ns $CHART_NMAESPACE &> /dev/null ; then
     helm install $CHART_NAME ./ --namespace=$CHART_NMAESPACE --values=tmp-values.yaml --create-namespace
@@ -53,12 +51,6 @@ else
     helm install $CHART_NAME ./ --namespace=$CHART_NMAESPACE --values=tmp-values.yaml
     echo "Chart deployed"
 fi
-
-# if [ "$BUILD_OR_UPGRADE" == "install" ]; then
-#     helm install $CHART_NAME ./ --namespace=$CHART_NMAESPACE --values=tmp-values.yaml --create-namespace
-# else
-#     helm upgrade $CHART_NAME ./ --namespace=$CHART_NMAESPACE --values=tmp-values.yaml 
-# fi
 
 rm -f tmp-values.yaml
 

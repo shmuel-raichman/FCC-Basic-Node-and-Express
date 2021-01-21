@@ -1,9 +1,5 @@
 # B"H
-# This workflow will build a docker container, publish it to Google Container Registry, and deploy it to GKE when a release is created
-#
-# For more support on how to run the workflow, please visit https://github.com/google-github-actions/setup-gcloud/tree/master/example-workflows/gke
 
-# For later
 name: Resize
 
 on:
@@ -20,8 +16,8 @@ on:
 
 env:
   PROJECT_ID: ${{ secrets.GKE_PROJECT }}
-  GKE_CLUSTER: ${{ secrets.GKE_CLUSTER_NAME }} #tikal-interview # TODO: update to cluster name
-  GKE_ZONE: us-central1-c   # TODO: update to cluster zone
+  GKE_CLUSTER: ${{ secrets.GKE_CLUSTER_NAME }}
+  GKE_ZONE: us-central1-c   
 
 jobs:
   setup-resize:
@@ -50,7 +46,7 @@ jobs:
         location: ${{ env.GKE_ZONE }}
         credentials: ${{ secrets.GKE_SA_KEY }}
 
-    # Build the Docker image
+    # Resize the cluster
     - name: Resize
       run: |-
         gcloud container clusters resize ${{ secrets.GKE_CLUSTER_NAME }} \

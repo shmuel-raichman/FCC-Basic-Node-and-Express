@@ -1,7 +1,4 @@
 # B"H
-# This workflow will build a docker container, publish it to Google Container Registry, and deploy it to GKE when a release is created
-#
-# For more support on how to run the workflow, please visit https://github.com/google-github-actions/setup-gcloud/tree/master/example-workflows/gke
 
 name: Build and Deploy to GKE PROD
 
@@ -13,13 +10,12 @@ on:
 
 env:
   PROJECT_ID: ${{ secrets.GKE_PROJECT }}
-  GKE_CLUSTER: tikal-interview # TODO: update to cluster name
-  GKE_ZONE: us-central1-c   # TODO: update to cluster zone
-  DEPLOYMENT_NAME: fcc-basic-node-and-express # TODO: update to deployment name
+  GKE_CLUSTER: tikal-interview
+  GKE_ZONE: us-central1-c
+  DEPLOYMENT_NAME: fcc-basic-node-and-express 
   IMAGE: fcc-basic-node-and-express
   ENVIRONMENT: prod
   REGISTRY: smuel770
-  # IMAGE_DIGEST: ""
 
 jobs:
   setup-build-publish-deploy:
