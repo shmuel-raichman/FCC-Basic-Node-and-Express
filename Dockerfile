@@ -1,4 +1,7 @@
-FROM smuel770/fcc-basic-node-and-express:1.0.0 AS builder 
+# B"H
+FROM node:lts-alpine3.12
+
+RUN apk add --no-cache tini
 
 WORKDIR /app
 

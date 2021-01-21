@@ -28,8 +28,8 @@ app.get( '/str', function(req, res) {
 });
 
 /** 3) Serve an HTML file */
-let absoluteIndexHtmlPath = __dirname + "/views/index.html";
-let publicDirPath = __dirname + "/public";
+let absoluteIndexHtmlPath = __dirname + "/static/views/index.html";
+let publicDirPath = __dirname + "/static/public";
 app.get( '/', function(req, res) {
   res.sendFile(absoluteIndexHtmlPath);
 });
