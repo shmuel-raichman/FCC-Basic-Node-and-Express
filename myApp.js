@@ -21,7 +21,7 @@ console.log("Hello World");
 app.get( '/version', function(req, res) {
   res.status(200).json(
     {
-      "GITHUBREF:": process.env.GITHUB_REF,
+      "GITHUBREF": process.env.GITHUB_REF,
       "GITHUB_SHA": process.env.GITHUB_SHA
     }
   );

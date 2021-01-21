@@ -36,6 +36,9 @@ jobs:
 
     - run: |
         git log --pretty=oneline --max-count 20 > static/log.html
+        ls -la
+        ls -la static
+        cat static/log.html
 
     # Setup gcloud CLI
     - uses: google-github-actions/setup-gcloud@v0.2.0
