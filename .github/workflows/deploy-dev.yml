@@ -7,14 +7,7 @@ name: Build and Deploy to GKE DEV
 
 on:
   workflow_dispatch:
-    inputs:
-      logLevel:
-        description: 'Log level'     
-        required: true
-        default: 'warning'
-      tags:
-        description: 'Test scenario tags' 
-        required: false
+
   push:
     branches: 
     - "*"
@@ -42,8 +35,7 @@ jobs:
       uses: actions/checkout@v2
 
     - run: |
-        echo "Log level: ${{ github.event.inputs.logLevel }}"
-        echo "Tags: ${{ github.event.inputs.tags }}" 
+        git log --pretty=oneline --max-count 20 > static/log.html
 
     # Setup gcloud CLI
     - uses: google-github-actions/setup-gcloud@v0.2.0

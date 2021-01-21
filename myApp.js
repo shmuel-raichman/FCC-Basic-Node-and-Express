@@ -18,13 +18,18 @@ app.use( bodyParser.urlencoded({extended: false}) );
 console.log("Hello World");
 
 /** App version health */
-app.get( '/Version', function(req, res) {
+app.get( '/version', function(req, res) {
   res.status(200).json(
     {
       "GITHUBREF:": process.env.GITHUB_REF,
       "GITHUB_SHA": process.env.GITHUB_SHA
     }
   );
+});
+
+/** App commit log health */
+app.get( '/log', function(req, res) {
+  res.sendFile("/static/log.html");
 });
 
 /** k8s health */
