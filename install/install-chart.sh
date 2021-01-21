@@ -17,7 +17,7 @@ values[TAG]=$IMAGE_TAG
 values[INGRESS_ENABLED]=ture
 values[SERVICE_TYPE]=ClusterIP
 
-if "$ENVIRONMENT" == "prod" ; then
+if "$ENVIRONMENT" = "prod" ; then
     values[INGRESS_HOST_NAME]=fcc-basic-node-and-express.raichmans.com
 else
     values[INGRESS_HOST_NAME]=fcc-basic-node-and-express.$ENVIRONMENT.raichmans.com
