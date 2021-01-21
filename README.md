@@ -24,3 +24,5 @@ Create new helm chart.
 Add replace strings for changing values in `values.yaml`
 Create install script with app spesific values that replace place holders with real values.
 Create docker build script.
+
+# 
