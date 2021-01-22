@@ -33,12 +33,21 @@ npm start
 `PORT=8888 npm start`
 ```
 
-Run with docker:
+Build and Run with docker:
 Requirements:
     docker engine
 ```bash
 docker build -t fcc-basic-node-and-express .
 docker run --rm -it --name myapp-dev -p 3333:3000 fcc-basic-node-and-express
+# -p your_pc_port:docker_container_port
+```
+Open browser: http://localhost:3333
+
+Run with docker:
+Requirements:
+    docker engine
+```bash
+docker run --rm -it --name myapp-dev -p 3333:3000 smuel770/fcc-basic-node-and-express:latest
 # -p your_pc_port:docker_container_port
 ```
 Open browser: http://localhost:3333
@@ -57,7 +66,7 @@ cd install
 # Add execute permissions to the install script.
 sudo chmod +x install-chart.sh
 # Install the chart on your kubernetes cluster.
-ENVIRONMENT=dev ./install-chart.sh e3e30e95be2d0a849e2e82af98c1ded9db6c2fe2 smuel770/fcc-basic-node-and-express@sha256
+ENVIRONMENT=dev ./install-chart.sh latest smuel770/fcc-basic-node-and-express
 # ENVIRONMENT=dev ./install-chart.sh TAG REPO
 ```
 

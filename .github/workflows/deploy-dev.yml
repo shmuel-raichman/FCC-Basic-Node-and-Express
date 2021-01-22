@@ -62,16 +62,9 @@ jobs:
           --build-arg GITHUB_REF="$GITHUB_REF" \
           .
 
-    # Tag the Docker image
-    - name: Tag
-      run: |-
-        docker tag \
-          "$REGISTRY/$IMAGE:$GITHUB_SHA" "$REGISTRY/$IMAGE:latest"
-
     # Push the Docker image to Google Container Registry
     - name: Publish
       run: |-
-        # IMAGE_DIGEST=$(docker images --no-trunc --quiet "$REGISTRY/$IMAGE:$GITHUB_SHA")
         echo $IMAGE_DIGEST
         docker push "$REGISTRY/$IMAGE:$GITHUB_SHA"
 
