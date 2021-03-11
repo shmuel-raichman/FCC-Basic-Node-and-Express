@@ -116,7 +116,6 @@ https://fcc-basic-node-and-express.dev.raichmans.com/
 https://fcc-basic-node-and-express.qa.raichmans.com/
 
 
-And shut down agian around wednesday or when you tell me you check it out.
 There are some issues i opend in the repo and didn't got to do.
 
 # Build and deploy rules
