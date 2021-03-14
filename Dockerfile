@@ -20,3 +20,4 @@ ENV GITHUB_REF=${GITHUB_REF}
 ENTRYPOINT ["tini", "--"]
 CMD ["npm", "start"]
 # This is it
+# Another one
