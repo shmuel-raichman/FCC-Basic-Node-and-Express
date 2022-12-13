@@ -5,7 +5,7 @@
 		"body-parser": "^1.15.2",
 		"cookie-parser": "^1.4.3",
 		"dotenv": "^8.0.0",
-		"express": "^4.14.0",
+		"express": "^4.17.3",
 		"mocha": "^8.2.1"
 	},
 	"main": "server.js",
